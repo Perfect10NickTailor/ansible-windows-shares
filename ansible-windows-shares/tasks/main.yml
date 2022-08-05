@@ -1,0 +1,40 @@
+- name: Create share path
+  win_file:
+    path: '{{item.share_path}}'
+    state: directory
+  with_items: "{{ windows_shares }}"
+  register: path
+
+- debug:
+    var: path
+
+- name: Add public company share
+  ansible.windows.win_share:
+    name: '{{ item.share_name }}'
+    description: '{{ item.description_share }}'
+    path: '{{ item.share_path }}'
+    list: 'yes'
+    full: '{{ item.allowed_users }}'
+    change: '{{ item.allowed_users }}'
+    state: present
+  with_items: "{{ windows_shares }}"
+  register: share
+
+- debug:
+    var: share
+
+- name: Give full control on share folder
+  ansible.windows.win_acl:
+    path: '{{ item.share_path }}'
+    user: Users
+    rights: '{{ item.folder_permissions }}'
+    #rights: Read,Write,Modify,FullControl,Delete
+    type: allow
+    state: present
+  with_items: "{{ windows_shares }}"
+  register: permission
+
+- debug:
+    var: permission
+
+

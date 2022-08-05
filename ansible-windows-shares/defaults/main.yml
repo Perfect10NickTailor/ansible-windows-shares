@@ -1,0 +1,17 @@
+windows_shares:
+  - share_name: test3
+    description_share: 'default share for testing'
+    share_path: C:\inetpub\wwwroot3
+    list: yes
+    allowed_users: 'Administrators'
+    user_permissions: 'Administrators'
+    folder_permissions: Read,Write,Modify,FullControl,Delete
+
+  - share_name: test4
+    description_share: default share for testing2
+    share_path: C:\inetpub\wwwroot4
+    list: yes
+    allowed_users: Administrators
+    user_permissions: Administrators
+    folder_permissions: Read,Write,Modify,FullControl,Delete
+
